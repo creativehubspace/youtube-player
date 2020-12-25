@@ -6,7 +6,8 @@ export default function Search() {
   return (
     <div>
       <form>
-        <input type="text" value={inputValue} />
+        <label htmlFor="search">Search video:</label>
+        <input type="text" name="search" id="search" value={inputValue} />
       </form>
     </div>
   );

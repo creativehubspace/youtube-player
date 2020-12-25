@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Search from '../components/Search';
+import { getVideos } from '../lib/api';
 
 export default function Home() {
   return (
@@ -11,4 +12,11 @@ export default function Home() {
       <Search />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const allVideos = await getVideos();
+  return {
+    props: { allVideos },
+  };
 }
