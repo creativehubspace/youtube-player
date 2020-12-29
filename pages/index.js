@@ -1,15 +1,18 @@
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 import Search from '../components/Search';
+import Videos from '../components/Videos';
 import { getVideos } from '../lib/api';
 
 export default function Home({ allVideos }) {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Youtube Player</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Search />
+      <Videos videos={allVideos} />
     </div>
   );
 }
@@ -21,3 +24,7 @@ export async function getStaticProps() {
     props: { allVideos },
   };
 }
+
+Home.propTypes = {
+  allVideos: PropTypes.array,
+};
