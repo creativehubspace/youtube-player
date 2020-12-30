@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { useState, useEffect } from 'react';
 import FeaturedVideo from '../components/FeaturedVideo';
 import Search from '../components/Search';
 import Videos from '../components/Videos';
-import { getVideos } from '../lib/api';
+import { getVideos, searchVideos } from '../lib/api';
 
 const ContentStyles = styled.div`
   max-width: 1200px;
@@ -18,6 +19,14 @@ const VideoSection = styled.div`
 `;
 
 export default function Home({ allVideos }) {
+  // const [featuredVideo, setfeaturedVideo] = useState();
+  console.log(allVideos[0]);
+  const featuredVideo = allVideos[0];
+
+  /* useEffect(() => {
+    setfeaturedVideo(allVideos[0]);
+  }); */
+
   return (
     <div>
       <Head>
@@ -27,7 +36,7 @@ export default function Home({ allVideos }) {
       <ContentStyles>
         <Search />
         <VideoSection>
-          <FeaturedVideo />
+          <FeaturedVideo video={featuredVideo} />
           <Videos videos={allVideos} />
         </VideoSection>
       </ContentStyles>
@@ -37,7 +46,9 @@ export default function Home({ allVideos }) {
 
 export async function getStaticProps() {
   const allVideos = await getVideos();
-  console.log(allVideos);
+  const searchedVideos = await searchVideos('programming');
+  // console.log(allVideos);
+  // console.log(searchedVideos);
   return {
     props: { allVideos },
   };
