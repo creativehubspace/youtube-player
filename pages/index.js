@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import FeaturedVideo from '../components/FeaturedVideo';
 import Search from '../components/Search';
 import Videos from '../components/Videos';
-import { getVideos, searchVideos } from '../lib/api';
+import { searchVideos } from '../lib/api';
 
 const ContentStyles = styled.div`
   max-width: 1200px;
@@ -14,17 +14,17 @@ const ContentStyles = styled.div`
 
 const VideoSection = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
   gap: 15px;
 `;
 
-export default function Home({ allVideos }) {
-  // const [featuredVideo, setfeaturedVideo] = useState();
-  console.log(allVideos[0]);
-  const featuredVideo = allVideos[0];
+export default function Home({ searchedVideos }) {
+  // const [SelectedVideo, setSelectedVideo] = useState(searchedVideos);
+  // console.log(allVideos[0]);
+  const featuredVideo = searchedVideos[0];
 
   /* useEffect(() => {
-    setfeaturedVideo(allVideos[0]);
+    setSelectedVideo(searchedVideos[0]);
   }); */
 
   return (
@@ -36,8 +36,7 @@ export default function Home({ allVideos }) {
       <ContentStyles>
         <Search />
         <VideoSection>
-          <FeaturedVideo video={featuredVideo} />
-          <Videos videos={allVideos} />
+          <Videos videos={searchedVideos} />
         </VideoSection>
       </ContentStyles>
     </div>
@@ -45,15 +44,14 @@ export default function Home({ allVideos }) {
 }
 
 export async function getStaticProps() {
-  const allVideos = await getVideos();
   const searchedVideos = await searchVideos('programming');
-  // console.log(allVideos);
-  // console.log(searchedVideos);
+
+  console.log(searchedVideos);
   return {
-    props: { allVideos },
+    props: { searchedVideos },
   };
 }
 
 Home.propTypes = {
-  allVideos: PropTypes.array,
+  searchedVideos: PropTypes.array,
 };

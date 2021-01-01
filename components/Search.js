@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { searchVideos } from '../lib/api';
 
 export default function Search() {
   const [term, setTerm] = useState('programming');
+  const [videos, setVideos] = useState([]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

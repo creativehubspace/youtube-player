@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 
 export default function FeaturedVideo({ video }) {
   const { title } = video.snippet;
-  const { id } = video;
+  const { videoId } = video.id;
   const description = video.snippet.description
     ? video.snippet.description
     : title;
 
-  const videoSrc = `https://youtube.com/embed/${id}`;
+  const videoSrc = `https://youtube.com/embed/${videoId}`;
 
   return (
     <div>
